@@ -1,7 +1,38 @@
-var vagrant = require('vagrant'),
-    spawn = require('child_process').spawn;
+var spawn = require('child_process').spawn,
+    which = require('which'),
+    events = require('events'),
+    util = require('util');
 
-var shell = function(cmd, args, out) {
+function VagrantShell() {
+    var me = this;
+
+    this._bin = null;
+
+    this._parseVersion = function(str) {
+        var v = str.match(/\d+\.\d+\.\d+/g);
+        if(v) {
+            return v.pop();
+        }else{
+            return false;
+        }
+    };
+}
+
+VagrantShell.prototype = new events.EventEmitter;
+
+VagrantShell.prototype.bin = function() {
+    if(!this._bin) {
+        try {
+            this._bin = which.sync('vagrant');
+        } catch (e) {
+            throw("vagrant command not found in your PATH");
+        }
+    }
+
+    return this._bin;
+};
+
+VagrantShell.prototype.shell = function(cmd, args, out) {
     var child = spawn(cmd, args),
         response = '';
 
@@ -15,22 +46,25 @@ var shell = function(cmd, args, out) {
     });
 };
 
+VagrantShell.prototype.exec = function(args, cb) {
+    this.shell(this.bin(), args, cb);
+};
 
-vagrant.exec = function(args, cb) {
-    shell(this.bin(), args, function(response) {
-        cb(response);
+VagrantShell.prototype.emitTest = function() {
+    this.emit('ready');
+};
+
+VagrantShell.prototype.init = function() {
+    var me = this;
+
+    v.exec(['-v'], function(r) {
+        me.version = me._parseVersion(r);
+        me.emit('ready');
     });
 };
 
-vagrant.exec(['-v'], function(response) {
-    var ver;
-    if(response) {
-        ver = response.trim().match(/[\d\.]+$/).shift();
-        vagrant.version = ver;
-    }
-});
+var v = new VagrantShell();
 
-// Map new object over
-Object.keys(vagrant).forEach(function(v) {
-    module.exports[v] = vagrant[v];
-});
+v.init();
+
+module.exports = v;
