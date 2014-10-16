@@ -1,30 +1,13 @@
 {
-  "name": "vagrant-gui",
-  "version": "0.0.0",
-  "description": "Frontend for Vagrant using atom-shell",
-  "main": "src/index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "name": "vagrant-gui.app",
+  "version": "0.1.0",
+  "description": "frontend for your vagrant boxes",
   "repository": {
-    "type": "git",
-    "url": "git://github.com/wittnl/Vagrant-GUI.git"
+    "url": "https://github.com/wittnl/vagrant-gui"
   },
-  "keywords": [
-    "vagrant",
-    "atom-shell",
-    "virtualbox"
-  ],
-  "author": "Nathan Witt",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/wittnl/Vagrant-GUI/issues"
-  },
-  "homepage": "https://github.com/wittnl/Vagrant-GUI",
-  "devDependencies": {
-    "semver": "^2.3.1",
-    "gulp": "^3.8.6",
-    "gulp-download-atom-shell": "0.0.4",
-    "which": "^1.0.5"
+  "dependencies": {
+    "gulp-atom": "0.0.2",
+    "gulp": "^3.6.2",
+    "gulp-shell": "^0.2.5"
   }
 }

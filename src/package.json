@@ -1,5 +1,17 @@
 {
-    "name": "vagrant-gui",
-    "version": "0.0.0",
-    "main": "index.js"
+  "name": "vagrant-gui.app",
+  "version": "0.0.1",
+  "main": "app.js",
+  "description": "frontend for your vagrant boxes",
+  "repository": {
+    "url": "https://github.com/wittnl/vagrant-gui"
+  },
+  "dependencies": {
+    "which": "^1.0.5",
+    "semver": "^4.0.3",
+    "jade": "^1.7.0",
+    "jquery": "^2.1.1",
+    "famfamfam-silk": "^0.1.0",
+    "open": "0.0.5"
+  }
 }

@@ -1,0 +1,10 @@
+.box(id= id)
+  .id= id
+  .name= name
+  //.provider= provider
+  //.location= directory
+  //.status= state
+  unless state == 'poweroff'
+    include ../partials/box-status-running.jade
+  else
+    include ../partials/box-status-poweroff.jade
